@@ -266,7 +266,7 @@ class AppliedScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   SvgPicture.asset(
-                                      'assets/svgs/ic_discord.svg'),
+                                      'assets/images/discord.png'),
                                   Padding(
                                       padding: const EdgeInsets.only(left: 20)),
                                   Column(
@@ -377,14 +377,14 @@ class AppliedScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Senior UI/UX Designer needed, for collaborate with',
+                                        'Junior UI Designer needed needed, for redesign ',
                                         style: GoogleFonts.plusJakartaSans(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Color(0xFF7F879E)),
                                       ),
                                       Text(
-                                        'team and developer as full time designer. by having ',
+                                        'many page in discord web, desktop and mobile app so',
                                         style: GoogleFonts.plusJakartaSans(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
