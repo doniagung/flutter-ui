@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pertemuan4_flutter_ui/screens/applied_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -226,22 +227,38 @@ class HomeScreen extends StatelessWidget {
                          const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 14, right: 14, ),
-                        child: Row(
-                          children: [
-                            Text('Senior UI/UX Designer needed, for collaborate with team and developer as full time designer. by having good communication skills,', 
-                            style: GoogleFonts.plusJakartaSans(
-                              fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF7F879E)
-                            ) ,)
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 14, right: 14, ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Senior UI/UX Designer needed, for collaborate with', 
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF7F879E)
+                                ) ,),
+                                Text('team and developer as full time designer. by having ', 
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF7F879E)
+                                ) ,),
+                                Text('good communication skills,', 
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF7F879E)
+                                ) ,)
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                        const SizedBox(
                         height: 20,
                       ),
                         GestureDetector(
-                        onTap: () => {},
+                        onTap: () {
+                          Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AppliedScreen(),),);
+                        },
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(14),
