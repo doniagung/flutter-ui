@@ -2,10 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pertemuan4_flutter_ui/screens/input.dart'; // Tambahkan ini
 import 'package:pertemuan4_flutter_ui/screens/applied_screen.dart';
+import 'package:pertemuan4_flutter_ui/controller/jobdesc_controller.dart';
+import 'package:pertemuan4_flutter_ui/models/jobdesc_model.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final JobdescController _jobdescController = JobdescController();
+  List<JobdescModel>? jobdescs;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchJobdescs();
+  }
+
+  Future<void> _fetchJobdescs() async {
+    await _jobdescController.getJondesc();
+    setState(() {
+      jobdescs = _jobdescController.jobdescs;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +72,19 @@ class HomeScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(21)),
                           child: Image.network(
-                              'https://gravatar.com/avatar/27205e5c51cb03f862138b22bcb5dc20f94a342e744ff6df1b8dc8af3c865109.jpg'))
+                              'https://gravatar.com/avatar/27205e5c51cb03f862138b22bcb5dc20f94a342e744ff6df1b8dc8af3c865109.jpg')),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.add, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => JobInputPage()),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -154,142 +190,209 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(14),
-                    decoration: BoxDecoration(color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)),
-                    child: Column(children: [
-                      Padding(padding: const EdgeInsets.only(left: 6, right: 6, top: 6),
-                      child: Row(children: [
-                        SvgPicture.asset('assets/svgs/ic_pinterest.svg'),
-                       Padding(padding: const EdgeInsets.only(left: 20)),
-                        Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Pinterest', style: GoogleFonts.plusJakartaSans(fontSize: 14, fontWeight: FontWeight.w800),),
-                            Text('Senior UI/UX Designer', style: GoogleFonts.plusJakartaSans(fontSize: 12, color: Color(0xFF7F879E))),
-                          ],
-                        ),
-                        const Spacer(),
-                        SvgPicture.asset('assets/svgs/ic_save.svg'),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        
-                      ],
-                      ),
-                      
-                      ),
-                      Padding(padding: 
-                        const EdgeInsets.only(left: 15, right: 20, top: 20),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/svgs/ic_location.svg'),
-                            const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'California, Freelance ,WFO',
-                            style: GoogleFonts.plusJakartaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xFF7F879E)),
-                          ),
-                          ],
-                        ),
-                        ),
-                        Padding(padding: 
-                        const EdgeInsets.only(left: 15, right: 20, top: 20),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/svgs/ic_dolar.svg'),
-                            const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            '25,000 dollars ',
-                            style: GoogleFonts.plusJakartaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xFF1B2124)),
-                          ),
-                          Text(
-                            '/Month',
-                            style: GoogleFonts.plusJakartaSans(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: const Color(0xFF7F879E)),
-                          ),
-                          ],
-                        ),
-                        ),
-                         const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 14, right: 14, ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Senior UI/UX Designer needed, for collaborate with', 
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF7F879E)
-                                ) ,),
-                                Text('team and developer as full time designer. by having ', 
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF7F879E)
-                                ) ,),
-                                Text('good communication skills,', 
-                                style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF7F879E)
-                                ) ,)
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                       const SizedBox(
-                        height: 20,
-                      ),
-                        GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AppliedScreen(),),);
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Color(0xFF3860E2),
-                              width: 2)),
-                          child: Center(
-                            child: Text(
-                              'Apply Now',
-                              style: GoogleFonts.plusJakartaSans(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF3860E2),
+                  jobdescs == null
+                      ? Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: jobdescs!.length,
+                          itemBuilder: (context, index) {
+                            final job = jobdescs![index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(14),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Column(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 6, right: 6, top: 6),
+                                    child: Row(children: [
+                                      SvgPicture.asset(
+                                          'assets/svgs/ic_pinterest.svg'),
+                                      Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 20)),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            job.nama_perusahaan,
+                                            style:
+                                                GoogleFonts.plusJakartaSans(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w800),
+                                          ),
+                                          Text(
+                                            job.lowongan,
+                                            style:
+                                                GoogleFonts.plusJakartaSans(
+                                                    fontSize: 12,
+                                                    color: Color(0xFF7F879E)),
+                                          ),
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      SvgPicture.asset(
+                                          'assets/svgs/ic_save.svg'),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ]),
                                   ),
-                            ),
-                          ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 20, top: 20),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                            'assets/svgs/ic_location.svg'),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          job.lokasi,
+                                          style:
+                                              GoogleFonts.plusJakartaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(
+                                                      0xFF7F879E)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 20, top: 20),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                            'assets/svgs/ic_dolar.svg'),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          job.gaji,
+                                          style:
+                                              GoogleFonts.plusJakartaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color:
+                                                      const Color(0xFF1B2124)),
+                                        ),
+                                        Text(
+                                          '/Month',
+                                          style:
+                                              GoogleFonts.plusJakartaSans(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(
+                                                      0xFF7F879E)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 14,
+                                          right: 14,
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Senior UI/UX Designer needed, for collaborate with',
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color(
+                                                          0xFF7F879E)),
+                                            ),
+                                            Text(
+                                              'team and developer as full time designer. by having ',
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color(
+                                                          0xFF7F879E)),
+                                            ),
+                                            Text(
+                                              'good communication skills,',
+                                              style:
+                                                  GoogleFonts.plusJakartaSans(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color(
+                                                          0xFF7F879E)),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AppliedScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.all(14),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                              color: Color(0xFF3860E2),
+                                              width: 2)),
+                                      child: Center(
+                                        child: Text(
+                                          'Apply Now',
+                                          style: GoogleFonts.plusJakartaSans(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF3860E2),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                    ],
-                    ),
-                  )
-                ],
-                ),
+                ]),
               ),
             ],
           )
         ],
       ),
-      
     ),
     bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
